@@ -35,9 +35,10 @@ albedo_color = Color(0.67451, 0, 0.027451, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_kcral"]
 material = SubResource("StandardMaterial3D_6mj58")
 
-[node name="Demo" type="Node3D" node_paths=PackedStringArray("node_shaker_3d")]
+[node name="Demo" type="Node3D" node_paths=PackedStringArray("node_shaker_3d", "test_cube")]
 script = ExtResource("1_fyaxq")
 node_shaker_3d = NodePath("NodeShaker3D")
+test_cube = NodePath("Cube")
 
 [node name="Environment" type="Node3D" parent="."]
 
@@ -64,9 +65,8 @@ transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 
 transform = Transform3D(1, -6.65242e-06, 6.0559e-05, 6.653e-06, 1, -9.59318e-06, -6.05589e-05, 9.59358e-06, 1, 0.000258952, 1.00009, -1.31479e-05)
 mesh = SubResource("BoxMesh_kcral")
 
-[node name="NodeShaker3D" type="Node3D" parent="." node_paths=PackedStringArray("target")]
+[node name="NodeShaker3D" type="Node3D" parent="."]
 script = ExtResource("1_2jt11")
-target = NodePath("../Cube")
 recovery_speed = 2.0
 frequency = 25.0
 
