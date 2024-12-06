@@ -10,7 +10,6 @@ class_name NodeShaker3D
 		if (target):
 			inital_position = target.position
 			inital_rotation = target.rotation
-			print("setting position")
 
 @export var shake_node : bool = false:
 	set(value):

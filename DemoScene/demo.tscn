@@ -65,9 +65,9 @@ transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 
 transform = Transform3D(1, -6.79004e-06, 5.90103e-05, 6.79074e-06, 1, -1.19792e-05, -5.90102e-05, 1.19796e-05, 1, 0.000257192, 1.00009, -1.38377e-05)
 mesh = SubResource("BoxMesh_kcral")
 
-[node name="NodeShaker3D" type="Node3D" parent="."]
+[node name="NodeShaker3D" type="Node3D" parent="." node_paths=PackedStringArray("target")]
 script = ExtResource("1_2jt11")
-shake_node = null
+target = NodePath("../Cube")
 recovery_speed = 2.0
 frequency = 25.0
 
