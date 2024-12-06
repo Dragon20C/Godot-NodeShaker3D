@@ -7,11 +7,14 @@ class_name NodeShaker3D
 @export var target : Node3D:
 	set(value):
 		target = value
-		inital_position = target.position
-		inital_rotation = target.rotation
-@export var shake_once : bool = false:
+		if (target):
+			inital_position = target.position
+			inital_rotation = target.rotation
+			print("setting position")
+
+@export var shake_node : bool = false:
 	set(value):
-		shake_once = false
+		shake_node = false
 		induce_stress()
 @export_range(0.1,5) var recovery_speed : float = 1.5
 @export var frequency : float = 8.0
@@ -30,6 +33,10 @@ func _ready() -> void:
 	noise.seed = randi_range(0,1000)
 	noise.frequency = 0.2
 
+func set_target(_target : Node3D) -> void:
+	if _target:
+		target = _target
+
 func induce_stress(stress : float = 1.0) -> void:
 	trauma += stress
 	trauma = clampf(trauma,0.0,1.0)
@@ -38,7 +45,8 @@ func _process(delta: float) -> void:
 	
 	shake = pow(trauma,trauma_exponent)
 	
-	if trauma <= 0:
+	## Return when trauma is zero, meaning no shake is happening and avoids running unnecessary code.
+	if trauma == 0.0 or not target:
 		return
 	
 	## Handle Translational shake
@@ -59,3 +67,8 @@ func _process(delta: float) -> void:
 	
 	trauma -= recovery_speed * delta
 	trauma = clampf(trauma,0.0,1.0)
+	
+	## if the trauma is zero, set the targets position to inital to avoid floating point percision.
+	if trauma == 0.0:
+		target.position = inital_position
+		target.rotation = inital_rotation
