@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://bedtvq0tndybj"]
 
-[ext_resource type="Script" path="res://addons/NodeShaker3D/Scripts/NodeShaker3D.gd" id="1_2jt11"]
 [ext_resource type="Script" path="res://DemoScene/demo.gd" id="1_fyaxq"]
+[ext_resource type="Script" path="res://addons/NodeShaker3D/Scripts/MultiNodeShaker3D.gd" id="3_1uufv"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_senbj"]
 sky_top_color = Color(3.85046e-07, 0.579303, 0.910396, 1)
@@ -35,10 +35,12 @@ albedo_color = Color(0.67451, 0, 0.027451, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_kcral"]
 material = SubResource("StandardMaterial3D_6mj58")
 
-[node name="Demo" type="Node3D" node_paths=PackedStringArray("node_shaker_3d", "test_cube")]
+[node name="Demo" type="Node3D" node_paths=PackedStringArray("node_shaker_3d", "multi_node_shaker_3d", "test_cube_1", "test_cube_2")]
 script = ExtResource("1_fyaxq")
-node_shaker_3d = NodePath("NodeShaker3D")
-test_cube = NodePath("Cube")
+node_shaker_3d = NodePath("")
+multi_node_shaker_3d = NodePath(" MultiNodeShaker3D")
+test_cube_1 = NodePath("Cube_1")
+test_cube_2 = NodePath("Cube_2")
 
 [node name="Environment" type="Node3D" parent="."]
 
@@ -61,14 +63,17 @@ skeleton = NodePath("../..")
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 2, 3)
 
-[node name="Cube" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, -6.79004e-06, 5.90103e-05, 6.79074e-06, 1, -1.19792e-05, -5.90102e-05, 1.19796e-05, 1, 0.000257192, 1.00009, -1.38377e-05)
+[node name="Cube_1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, -6.79003e-06, 5.90103e-05, 6.79074e-06, 1, -1.19792e-05, -5.90102e-05, 1.19796e-05, 1, 1.00026, 1.00009, -1.38377e-05)
 mesh = SubResource("BoxMesh_kcral")
 
-[node name="NodeShaker3D" type="Node3D" parent="." node_paths=PackedStringArray("target")]
-script = ExtResource("1_2jt11")
-target = NodePath("../Cube")
-recovery_speed = 2.0
+[node name="Cube_2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, -6.79003e-06, 5.90103e-05, 6.79074e-06, 1, -1.19792e-05, -5.90102e-05, 1.19796e-05, 1, -0.999743, 1.00009, -1.38377e-05)
+mesh = SubResource("BoxMesh_kcral")
+
+[node name=" MultiNodeShaker3D" type="Node3D" parent="."]
+script = ExtResource("3_1uufv")
+shake_node = false
 frequency = 25.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
